@@ -42,6 +42,7 @@ const employeeQuestions = [
 ];
 
 const employeeArray = [];
+let employeeHTML = "";
 function askUser(){
     inquirer.prompt(employeeQuestions).then(function (response) {
         if (response.employeeType === "Engineer") {
@@ -60,6 +61,17 @@ function askUser(){
                 }]).then(function(response3){
                     if(response3.continue){
                         askUser();
+                    }
+                    else{
+                        employeeHTML = render(employeeArray);
+                        fs.writeFile(outputPath, employeeHTML, function(err){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                console.log("Success!");
+                            }
+                        });
                     }
                 });
             });
@@ -81,6 +93,17 @@ function askUser(){
                     if(response3.continue){
                         askUser();
                     }
+                    else{
+                        employeeHTML = render(employeeArray);
+                        fs.writeFile(outputPath, employeeHTML, function(err){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                console.log("Success!");
+                            }
+                        });
+                    }
                 });
             });
         }
@@ -101,6 +124,17 @@ function askUser(){
                     if(response3.continue){
                         askUser();
                     }
+                    else{
+                        employeeHTML = render(employeeArray);
+                        fs.writeFile(outputPath, employeeHTML, function(err){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                console.log("Success!");
+                            }
+                        });
+                    }
                 });
             });
         }
@@ -112,8 +146,6 @@ askUser();
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
-
-var employeeHTML = render(employeeArray);
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
