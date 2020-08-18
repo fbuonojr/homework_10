@@ -14,6 +14,88 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+const employeeQuestions = [
+    {
+        type: "checkbox",
+        choices: [
+            "Engineer",
+            "Intern",
+            "Manager"
+        ],
+        name: "employeeType",
+        message: "Which kind of employee are you?"
+    },
+    {
+        type: "input",
+        name: "name",
+        message: "What is your name?"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What is your id number?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is your email?"
+    }
+];
+
+var addAnother = true;
+do {
+    inquirer.prompt(employeeQuestions).then(function (response) {
+        if (response.employeeType === "Engineer") {
+            inquirer.prompt([{
+                type: "input",
+                name: "github",
+                message: "What is your GitHub username?"
+            }]).then(function (response2) {
+                const engineer = new Engineer(response.name, response.id, response.email, response2.github);
+                inquirer.prompt([{
+                    type: "confirm",
+                    name: "continue",
+                    message: "Would you like to add another employee?"
+                }]).then(function(response3){
+                    addAnother = response3.continue;
+                });
+            });
+        }
+        else if (response.employeeType === "Intern") {
+            inquirer.prompt([{
+                type: "input",
+                name: "school",
+                message: "What school do you attend?"
+            }]).then(function (response2) {
+                const intern = new Intern(response.name, response.id, response.email, response2.school);
+                inquirer.prompt([{
+                    type: "confirm",
+                    name: "continue",
+                    message: "Would you like to add another employee?"
+                }]).then(function(response3){
+                    addAnother = response3.continue;
+                });
+            });
+        }
+        else if (response.employeeType === "Manager") {
+            inquirer.prompt([{
+                type: "input",
+                name: "officeNumber",
+                message: "What is your officeNumber?"
+            }]).then(function (response2) {
+                const manager = new Manager(response.name, response.id, response.email, response2.officeNumber);
+                inquirer.prompt([{
+                    type: "confirm",
+                    name: "continue",
+                    message: "Would you like to add another employee?"
+                }]).then(function(response3){
+                    addAnother = response3.continue;
+                });
+            });
+        }
+    });
+
+} while (addAnother);
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
