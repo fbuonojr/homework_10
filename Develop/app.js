@@ -10,13 +10,12 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 const employeeQuestions = [
     {
-        type: "checkbox",
+        type: "list",
         choices: [
             "Engineer",
             "Intern",
@@ -42,8 +41,8 @@ const employeeQuestions = [
     }
 ];
 
-var addAnother = true;
-do {
+const employeeArray = [];
+function askUser(){
     inquirer.prompt(employeeQuestions).then(function (response) {
         if (response.employeeType === "Engineer") {
             inquirer.prompt([{
@@ -52,12 +51,16 @@ do {
                 message: "What is your GitHub username?"
             }]).then(function (response2) {
                 const engineer = new Engineer(response.name, response.id, response.email, response2.github);
+                employeeArray.push(engineer);
+                console.log(engineer);
                 inquirer.prompt([{
                     type: "confirm",
                     name: "continue",
                     message: "Would you like to add another employee?"
                 }]).then(function(response3){
-                    addAnother = response3.continue;
+                    if(response3.continue){
+                        askUser();
+                    }
                 });
             });
         }
@@ -68,12 +71,16 @@ do {
                 message: "What school do you attend?"
             }]).then(function (response2) {
                 const intern = new Intern(response.name, response.id, response.email, response2.school);
+                employeeArray.push(intern);
+                console.log(intern);
                 inquirer.prompt([{
                     type: "confirm",
                     name: "continue",
                     message: "Would you like to add another employee?"
                 }]).then(function(response3){
-                    addAnother = response3.continue;
+                    if(response3.continue){
+                        askUser();
+                    }
                 });
             });
         }
@@ -84,21 +91,29 @@ do {
                 message: "What is your officeNumber?"
             }]).then(function (response2) {
                 const manager = new Manager(response.name, response.id, response.email, response2.officeNumber);
+                employeeArray.push(manager);
+                console.log(manager);
                 inquirer.prompt([{
                     type: "confirm",
                     name: "continue",
                     message: "Would you like to add another employee?"
                 }]).then(function(response3){
-                    addAnother = response3.continue;
+                    if(response3.continue){
+                        askUser();
+                    }
                 });
             });
         }
     });
+}
 
-} while (addAnother);
+askUser();
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
+
+var employeeHTML = render(employeeArray);
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
