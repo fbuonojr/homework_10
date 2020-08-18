@@ -1,32 +1,32 @@
 // TODO: Write code to define and export the Employee class
 class Employee {
-    constructor(name, id, email){
-        if(!name){
+    constructor(name, id, email) {
+        if (!name) {
             throw new Error("You are missing name");
         }
-        
-        if(!id){
+
+        if (!id) {
             throw new Error("You are missing id");
         }
-        
-        if(!email){
+
+        if (!email) {
             throw new Error("You are missing email");
         }
     }
 
-    getName(){
+    getName() {
         return this.name;
     }
-    
-    getId(){
+
+    getId() {
         return this.id;
     }
 
-    getEmail(){
+    getEmail() {
         return this.email;
     }
 
-    getRole(){
+    getRole() {
         return "Employee";
     }
 }
