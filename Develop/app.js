@@ -6,17 +6,8 @@ const path = require("path");
 const fs = require("fs");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
-console.log(OUTPUT_DIR);
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-console.log(outputPath);
 const render = require("./lib/htmlRenderer");
-
-console.log(fs.existsSync(OUTPUT_DIR));
-
-if (!fs.existsSync(OUTPUT_DIR)){
-    fs.mkdirSync(OUTPUT_DIR);
-}
-
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -91,14 +82,27 @@ function askUser(){
                     }
                     else{
                         employeeHTML = render(employeeArray);
-                        fs.writeFile(outputPath, employeeHTML, function(err){
-                            if(err){
-                                console.log(err);
-                            }
-                            else{
-                                console.log("Success!");
-                            }
-                        });
+                        if (!fs.existsSync(OUTPUT_DIR)){
+                            fs.mkdirSync(OUTPUT_DIR);
+                            fs.writeFile(outputPath, employeeHTML, function(err){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    console.log("Success, created directory and wrote to file!");
+                                }
+                            });
+                        }
+                        else{
+                            fs.writeFile(outputPath, employeeHTML, function(err){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    console.log("Success!");
+                                }
+                            });
+                        }
                     }
                 });
             });
@@ -121,14 +125,27 @@ function askUser(){
                     }
                     else{
                         employeeHTML = render(employeeArray);
-                        fs.writeFile(outputPath, employeeHTML, function(err){
-                            if(err){
-                                console.log(err);
-                            }
-                            else{
-                                console.log("Success!");
-                            }
-                        });
+                        if (!fs.existsSync(OUTPUT_DIR)){
+                            fs.mkdirSync(OUTPUT_DIR);
+                            fs.writeFile(outputPath, employeeHTML, function(err){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    console.log("Success, created directory and wrote to file!");
+                                }
+                            });
+                        }
+                        else{
+                            fs.writeFile(outputPath, employeeHTML, function(err){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    console.log("Success!");
+                                }
+                            });
+                        }
                     }
                 });
             });
@@ -151,14 +168,27 @@ function askUser(){
                     }
                     else{
                         employeeHTML = render(employeeArray);
-                        fs.writeFile(outputPath, employeeHTML, function(err){
-                            if(err){
-                                console.log(err);
-                            }
-                            else{
-                                console.log("Success!");
-                            }
-                        });
+                        if (!fs.existsSync(OUTPUT_DIR)){
+                            fs.mkdirSync(OUTPUT_DIR);
+                            fs.writeFile(outputPath, employeeHTML, function(err){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    console.log("Success, created directory and wrote to file!");
+                                }
+                            });
+                        }
+                        else{
+                            fs.writeFile(outputPath, employeeHTML, function(err){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    console.log("Success!");
+                                }
+                            });
+                        }
                     }
                 });
             });
@@ -166,4 +196,4 @@ function askUser(){
     });
 }
 
-// askUser();
+askUser();
