@@ -73,7 +73,6 @@ function askUser(){
             }]).then(function (response2) {
                 const engineer = new Engineer(response.name, response.id, response.email, response2.github);
                 employeeArray.push(engineer);
-                console.log(engineer);
                 inquirer.prompt([{
                     type: "confirm",
                     name: "continue",
@@ -104,7 +103,6 @@ function askUser(){
             }]).then(function (response2) {
                 const intern = new Intern(response.name, response.id, response.email, response2.school);
                 employeeArray.push(intern);
-                console.log(intern);
                 inquirer.prompt([{
                     type: "confirm",
                     name: "continue",
@@ -131,7 +129,7 @@ function askUser(){
             inquirer.prompt([{
                 type: "input",
                 name: "officeNumber",
-                message: "What is your officeNumber?"
+                message: "What is your office number?"
             }]).then(function (response2) {
                 const manager = new Manager(response.name, response.id, response.email, response2.officeNumber);
                 employeeArray.push(manager);
