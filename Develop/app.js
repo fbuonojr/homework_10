@@ -6,9 +6,17 @@ const path = require("path");
 const fs = require("fs");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
+console.log(OUTPUT_DIR);
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-
+console.log(outputPath);
 const render = require("./lib/htmlRenderer");
+
+console.log(fs.existsSync(OUTPUT_DIR));
+
+if (!fs.existsSync(OUTPUT_DIR)){
+    fs.mkdirSync(OUTPUT_DIR);
+}
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -133,7 +141,6 @@ function askUser(){
             }]).then(function (response2) {
                 const manager = new Manager(response.name, response.id, response.email, response2.officeNumber);
                 employeeArray.push(manager);
-                console.log(manager);
                 inquirer.prompt([{
                     type: "confirm",
                     name: "continue",
@@ -159,4 +166,4 @@ function askUser(){
     });
 }
 
-askUser();
+// askUser();
